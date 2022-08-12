@@ -1,7 +1,18 @@
-import requests
+import json
+from urllib.request import Request, urlopen
 
 
 def post_discord(message: str, webhook_url: str):
+    headers = {
+        "Content-Type": "application/json",
+        "User-Agent": "DiscordBot (private use) Python-urllib/3.10",
+    }
     data = {"content": message}
-    res = requests.post(webhook_url, json=data)
-    assert res.status_code == 204
+    request = Request(
+        webhook_url,
+        data=json.dumps(data).encode(),
+        headers=headers,
+    )
+
+    with urlopen(request) as res:
+        assert res.getcode() == 204
