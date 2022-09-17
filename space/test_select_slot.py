@@ -1,7 +1,8 @@
+from collections.abc import Sequence
 from datetime import date, time
 from unittest import TestCase
 
-from select_slot import TalkSlot
+from select_slot import TalkSlot, TalkSlots
 
 
 class TalkSlotTestCase(TestCase):
@@ -23,3 +24,16 @@ class TalkSlotTestCase(TestCase):
 
         self.assertTrue(actual.is_already_talked)
 
+
+class TalkSlotsTestCase(TestCase):
+    def test_can_create(self):
+        slots = [
+            TalkSlot(date(2022, 10, 14), time(13, 50), is_already_talked=True),
+            TalkSlot(date(2022, 10, 14), time(14, 40)),
+            TalkSlot(date(2022, 10, 15), time(16, 0)),
+        ]
+
+        actual = TalkSlots(slots)
+
+        self.assertIsInstance(actual, Sequence)
+        self.assertEqual(actual.values, slots)
