@@ -25,6 +25,14 @@ class TalkSlotTestCase(TestCase):
 
         self.assertTrue(actual.is_already_talked)
 
+    def test_human_readable_str(self):
+        day = date(2022, 10, 14)
+        start_time = time(13, 50)
+
+        actual = TalkSlot(day, start_time)
+
+        self.assertEqual(str(actual), "10/14 13:50開始のトーク")
+
 
 class TalkSlotsTestCase(TestCase):
     def setUp(self):

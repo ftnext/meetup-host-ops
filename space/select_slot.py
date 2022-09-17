@@ -13,6 +13,9 @@ class TalkSlot:
     _: KW_ONLY
     is_already_talked: bool = False
 
+    def __str__(self) -> str:
+        return f"{self.day:%m/%d} {self.start_time:%H:%M}開始のトーク"
+
 
 @dataclass(frozen=True)
 class TalkSlots(Sequence):
