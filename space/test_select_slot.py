@@ -1,6 +1,7 @@
 from collections.abc import Sequence
 from datetime import date, time
 from unittest import TestCase
+from unittest.mock import patch
 
 from select_slot import TalkSlot, TalkSlots
 
@@ -62,3 +63,13 @@ class TalkSlotsTestCase(TestCase):
             ]
         )
         self.assertEqual(actual, expected)
+
+    @patch("select_slot.random.choice", return_value=2)
+    def test_sample_one_slot_randomly(self, random_choice):
+        sut = TalkSlots(self.slots)
+
+        actual = sut.sample_one()
+
+        expected = TalkSlot(date(2022, 10, 15), time(16, 0))
+        self.assertEqual(actual, expected)
+        random_choice.assert_called_once_with(range(3))
