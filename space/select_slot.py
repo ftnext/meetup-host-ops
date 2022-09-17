@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import KW_ONLY, dataclass
 from datetime import date, time
 
 
@@ -6,3 +6,5 @@ from datetime import date, time
 class TalkSlot:
     day: date
     start_time: time
+    _: KW_ONLY
+    is_already_talked: bool = False
