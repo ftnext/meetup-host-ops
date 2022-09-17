@@ -26,14 +26,20 @@ class TalkSlotTestCase(TestCase):
 
 
 class TalkSlotsTestCase(TestCase):
-    def test_can_create(self):
-        slots = [
+    def setUp(self):
+        self.slots = [
             TalkSlot(date(2022, 10, 14), time(13, 50), is_already_talked=True),
             TalkSlot(date(2022, 10, 14), time(14, 40)),
             TalkSlot(date(2022, 10, 15), time(16, 0)),
         ]
 
-        actual = TalkSlots(slots)
+    def test_can_create(self):
+        actual = TalkSlots(self.slots)
 
         self.assertIsInstance(actual, Sequence)
-        self.assertEqual(actual.values, slots)
+        self.assertEqual(actual.values, self.slots)
+
+    def test_length_3_when_has_3_slots(self):
+        sut = TalkSlots(self.slots)
+
+        self.assertEqual(len(sut), 3)

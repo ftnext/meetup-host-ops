@@ -16,7 +16,7 @@ class TalkSlots(Sequence):
     values: Sequence[TalkSlot]
 
     def __len__(self) -> int:
-        raise NotImplementedError
+        return len(self.values)
 
     def __getitem__(self, key):
         raise NotImplementedError
