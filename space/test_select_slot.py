@@ -43,3 +43,9 @@ class TalkSlotsTestCase(TestCase):
         sut = TalkSlots(self.slots)
 
         self.assertEqual(len(sut), 3)
+
+    def test_get_by_index(self):
+        sut = TalkSlots(self.slots)
+
+        expected = TalkSlot(date(2022, 10, 14), time(14, 40))
+        self.assertEqual(sut[1], expected)

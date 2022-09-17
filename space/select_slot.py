@@ -19,4 +19,6 @@ class TalkSlots(Sequence):
         return len(self.values)
 
     def __getitem__(self, key):
-        raise NotImplementedError
+        if isinstance(key, slice):
+            raise NotImplementedError
+        return self.values[key]
