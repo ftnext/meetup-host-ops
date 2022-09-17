@@ -49,3 +49,16 @@ class TalkSlotsTestCase(TestCase):
 
         expected = TalkSlot(date(2022, 10, 14), time(14, 40))
         self.assertEqual(sut[1], expected)
+
+    def test_exclude_talked_slots(self):
+        sut = TalkSlots(self.slots)
+
+        actual = sut.exclude_talked_slots()
+
+        expected = TalkSlots(
+            [
+                TalkSlot(date(2022, 10, 14), time(14, 40)),
+                TalkSlot(date(2022, 10, 15), time(16, 0)),
+            ]
+        )
+        self.assertEqual(actual, expected)

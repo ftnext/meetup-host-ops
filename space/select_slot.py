@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Sequence
 from dataclasses import KW_ONLY, dataclass
 from datetime import date, time
@@ -22,3 +24,7 @@ class TalkSlots(Sequence):
         if isinstance(key, slice):
             raise NotImplementedError
         return self.values[key]
+
+    def exclude_talked_slots(self) -> TalkSlots:
+        filtered = filter(lambda slot: not slot.is_already_talked, self.values)
+        return self.__class__(list(filtered))
