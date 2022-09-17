@@ -36,3 +36,25 @@ class TalkSlots(Sequence):
     def sample_one(self) -> TalkSlot:
         index = random.choice(range(len(self)))
         return self[index]
+
+
+def main(slots) -> TalkSlot:
+    all_talk_slots = TalkSlots(slots)
+    not_yet_talked_slots = all_talk_slots.exclude_talked_slots()
+    return not_yet_talked_slots.sample_one()
+
+
+if __name__ == "__main__":
+    slots = [
+        TalkSlot(date(2022, 10, 14), time(13, 0), is_already_talked=True),
+        TalkSlot(date(2022, 10, 14), time(13, 50)),
+        TalkSlot(date(2022, 10, 14), time(14, 40)),
+        TalkSlot(date(2022, 10, 14), time(16, 20)),
+        TalkSlot(date(2022, 10, 14), time(17, 10)),
+        TalkSlot(date(2022, 10, 15), time(13, 0)),
+        TalkSlot(date(2022, 10, 15), time(13, 50)),
+        TalkSlot(date(2022, 10, 15), time(15, 10)),
+        TalkSlot(date(2022, 10, 15), time(16, 0)),
+    ]
+    this_time_slot = main(slots)
+    print(f"今回のスペースで話すのは、{this_time_slot}です")
