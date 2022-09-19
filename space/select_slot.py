@@ -29,9 +29,9 @@ class TalkSlots(Sequence):
             raise NotImplementedError
         return self.values[key]
 
-    def exclude_talked_slots(self) -> TalkSlots:
+    def exclude_talked_slots(self) -> UnfeaturedTalkSlots:
         filtered = filter(lambda slot: not slot.is_already_talked, self.values)
-        return self.__class__(list(filtered))
+        return UnfeaturedTalkSlots(list(filtered))
 
     def sample_one(self) -> TalkSlot:
         index = random.choice(range(len(self)))

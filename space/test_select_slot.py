@@ -64,7 +64,7 @@ class TalkSlotsTestCase(TestCase):
 
         actual = sut.exclude_talked_slots()
 
-        expected = TalkSlots(
+        expected = UnfeaturedTalkSlots(
             [
                 TalkSlot(date(2022, 10, 14), time(14, 40)),
                 TalkSlot(date(2022, 10, 15), time(16, 0)),
