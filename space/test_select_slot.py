@@ -95,6 +95,22 @@ class UnfeaturedTalkSlotsTestCase(TestCase):
         self.assertIsInstance(actual, TalkSlots)
         self.assertEqual(actual.values, slots)
 
+    def test_raise_error_when_including_already_talked_slot(self):
+        slots = [
+            TalkSlot(date(2022, 10, 14), time(14, 40)),
+            TalkSlot(date(2022, 10, 15), time(16, 0), is_already_talked=True),
+        ]
+
+        with self.assertRaises(ValueError) as ex:
+            _ = UnfeaturedTalkSlots(slots)
+
+        expected = (
+            "UnfeaturedTalkSlots cannot include any already talked slot: "
+            "TalkSlot(day=datetime.date(2022, 10, 15), "
+            "start_time=datetime.time(16, 0), is_already_talked=True)"
+        )
+        self.assertEqual(str(ex.exception), expected)
+
 
 class MainTestCase(TestCase):
     def test_select_slot_to_be_talked(self):

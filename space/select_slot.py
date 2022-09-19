@@ -40,7 +40,14 @@ class TalkSlots(Sequence):
 
 @dataclass(frozen=True)
 class UnfeaturedTalkSlots(TalkSlots):
-    ...
+    def __post_init__(self):
+        for talk_slot in self.values:
+            if talk_slot.is_already_talked:
+                message = (
+                    f"{self.__class__.__name__} cannot include any already "
+                    f"talked slot: {talk_slot!r}"
+                )
+                raise ValueError(message)
 
 
 def main(slots) -> TalkSlot:
