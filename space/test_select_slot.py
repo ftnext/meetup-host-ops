@@ -3,7 +3,7 @@ from datetime import date, time
 from unittest import TestCase
 from unittest.mock import patch
 
-from select_slot import TalkSlot, TalkSlots, main
+from select_slot import TalkSlot, TalkSlots, UnfeaturedTalkSlots, main
 
 
 class TalkSlotTestCase(TestCase):
@@ -81,6 +81,19 @@ class TalkSlotsTestCase(TestCase):
         expected = TalkSlot(date(2022, 10, 15), time(16, 0))
         self.assertEqual(actual, expected)
         random_choice.assert_called_once_with(range(3))
+
+
+class UnfeaturedTalkSlotsTestCase(TestCase):
+    def test_can_create(self):
+        slots = [
+            TalkSlot(date(2022, 10, 14), time(14, 40)),
+            TalkSlot(date(2022, 10, 15), time(16, 0)),
+        ]
+
+        actual = UnfeaturedTalkSlots(slots)
+
+        self.assertIsInstance(actual, TalkSlots)
+        self.assertEqual(actual.values, slots)
 
 
 class MainTestCase(TestCase):

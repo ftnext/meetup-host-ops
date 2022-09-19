@@ -38,6 +38,11 @@ class TalkSlots(Sequence):
         return self[index]
 
 
+@dataclass(frozen=True)
+class UnfeaturedTalkSlots(TalkSlots):
+    ...
+
+
 def main(slots) -> TalkSlot:
     all_talk_slots = TalkSlots(slots)
     not_yet_talked_slots = all_talk_slots.exclude_talked_slots()
