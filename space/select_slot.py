@@ -33,10 +33,6 @@ class TalkSlots(Sequence):
         filtered = filter(lambda slot: not slot.is_already_talked, self.values)
         return UnfeaturedTalkSlots(list(filtered))
 
-    def sample_one(self) -> TalkSlot:
-        index = random.choice(range(len(self)))
-        return self[index]
-
 
 @dataclass(frozen=True)
 class UnfeaturedTalkSlots(TalkSlots):
@@ -48,6 +44,10 @@ class UnfeaturedTalkSlots(TalkSlots):
                     f"talked slot: {talk_slot!r}"
                 )
                 raise ValueError(message)
+
+    def sample_one(self) -> TalkSlot:
+        index = random.choice(range(len(self)))
+        return self[index]
 
 
 def main(slots) -> TalkSlot:

@@ -72,28 +72,19 @@ class TalkSlotsTestCase(TestCase):
         )
         self.assertEqual(actual, expected)
 
-    @patch("select_slot.random.choice", return_value=2)
-    def test_sample_one_slot_randomly(self, random_choice):
-        sut = TalkSlots(self.slots)
-
-        actual = sut.sample_one()
-
-        expected = TalkSlot(date(2022, 10, 15), time(16, 0))
-        self.assertEqual(actual, expected)
-        random_choice.assert_called_once_with(range(3))
-
 
 class UnfeaturedTalkSlotsTestCase(TestCase):
-    def test_can_create(self):
-        slots = [
+    def setUp(self):
+        self.slots = [
             TalkSlot(date(2022, 10, 14), time(14, 40)),
             TalkSlot(date(2022, 10, 15), time(16, 0)),
         ]
 
-        actual = UnfeaturedTalkSlots(slots)
+    def test_can_create(self):
+        actual = UnfeaturedTalkSlots(self.slots)
 
         self.assertIsInstance(actual, TalkSlots)
-        self.assertEqual(actual.values, slots)
+        self.assertEqual(actual.values, self.slots)
 
     def test_raise_error_when_including_already_talked_slot(self):
         slots = [
@@ -110,6 +101,16 @@ class UnfeaturedTalkSlotsTestCase(TestCase):
             "start_time=datetime.time(16, 0), is_already_talked=True)"
         )
         self.assertEqual(str(ex.exception), expected)
+
+    @patch("select_slot.random.choice", return_value=1)
+    def test_sample_one_slot_randomly(self, random_choice):
+        sut = UnfeaturedTalkSlots(self.slots)
+
+        actual = sut.sample_one()
+
+        expected = TalkSlot(date(2022, 10, 15), time(16, 0))
+        self.assertEqual(actual, expected)
+        random_choice.assert_called_once_with(range(2))
 
 
 class MainTestCase(TestCase):
