@@ -27,7 +27,12 @@ def get_contents(note_id, token):
 
 def create_team_note(title, content, team_id, token):
     endpoint = f"https://api.hackmd.io/v1/teams/{team_id}/notes"
-    data = {"title": title, "content": content}
+    data = {
+        "title": title,
+        "content": content,
+        "readPermission": "guest",
+        "writePermission": "signed_in",
+    }
     response = api_post(endpoint, data, token)
     return f'https://hackmd.io/{response["id"]}'
 
