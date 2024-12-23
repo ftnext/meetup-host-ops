@@ -1,7 +1,7 @@
 import os
 
 from discord import post_discord
-from hackmd import copy_template
+from hackmd.team_notes import copy_template
 
 if __name__ == "__main__":
     webhook_url = os.environ["DISCORD_WEBHOOK_URL"]

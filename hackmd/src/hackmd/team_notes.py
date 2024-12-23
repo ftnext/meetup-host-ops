@@ -1,9 +1,5 @@
-from client import api_get, api_post
-
-
-def get_contents(note_id, token):
-    endpoint = f"https://api.hackmd.io/v1/notes/{note_id}"
-    return api_get(endpoint, token)
+from hackmd.client import api_post
+from hackmd.user_notes import get_contents
 
 
 def create_team_note(title, content, team_id, token):
