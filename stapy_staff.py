@@ -6,6 +6,7 @@ from hackmd.user_notes import copy_template
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument("count", type=int)
     parser.add_argument("--verbose", "-v", action="store_true")
     args = parser.parse_args()
 
@@ -18,5 +19,5 @@ if __name__ == "__main__":
     hackmd_token = os.environ["HACKMD_TOKEN"]
 
     template_note_id = "6LmE8fWeSnyA8aOT78ivrg"
-    note_url = copy_template(template_note_id, hackmd_token)
+    note_url = copy_template(template_note_id, hackmd_token, args.count)
     print(note_url)

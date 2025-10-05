@@ -1,3 +1,5 @@
+import re
+
 from hackmd.client import api_get, api_post
 
 
@@ -18,11 +20,12 @@ def create_user_note(title, content, token):
     return f'https://hackmd.io/{response["note"]["id"]}'
 
 
-def copy_template(template_id, token):
+def copy_template(template_id, token, count: int):
     template_contents = get_contents(template_id, token)
 
     title = f'Copy of {template_contents["title"]}'
-    content = template_contents["content"]
+    template = template_contents["content"]
+    content = re.sub("NN", str(count), template)
 
     copied_url = create_user_note(title, content, token)
     return copied_url
