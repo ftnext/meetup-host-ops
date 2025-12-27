@@ -17,7 +17,7 @@ def create_user_note(title, content, token):
         "writePermission": "signed_in",
     }
     response = api_post(endpoint, data, token)
-    return f'https://hackmd.io/{response["note"]["id"]}'
+    return f'https://hackmd.io/{response["id"]}'
 
 
 def copy_template(template_id, token, count: int):
